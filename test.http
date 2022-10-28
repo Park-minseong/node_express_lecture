@@ -25,3 +25,33 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/api/members/13
+
+
+###
+GET https://jowork-api-app.herokuapp.com/api/members
+
+###
+POST https://jowork-api-app.herokuapp.com/api/members
+Content-Type: application/json
+
+{  
+    "name": "William",
+    "team": "engineering",
+    "position": "Android Developer",
+    "emailAddress": "zake@google.com",
+    "phoneNumber": "010-xxxx-xxxx",
+    "admissionDate": "2021/06/12",
+    "birthday": "1995/09/27",
+    "profileImage": "profile11.png"
+}
+
+###
+PUT https://jowork-api-app.herokuapp.com/api/members/14
+Content-Type: application/json
+
+{
+    "name": "David"
+}
+
+###
+DELETE https://jowork-api-app.herokuapp.com/api/members/14

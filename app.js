@@ -8,6 +8,10 @@ const { Member } = db;
 
 app.use(express.json()); //서버로오는 리퀘스트를 처리해주는 미들웨어
 
+app.get('/', (req, res) => {
+  res.send('URL should contain /api/..');
+});
+
 app.get('/api/members', async (req, res) => {
   const { team } = req.query;
   if (team) {
