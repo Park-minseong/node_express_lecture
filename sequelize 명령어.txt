@@ -1,0 +1,13 @@
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.25.3",
+    "sequelize-cli": "^6.5.1"
+
+npx sequelize init //세팅
+npx sequelize dbcreate --env development //development 속성을 사용하여 db생성(안해도 기본값이 development
+npx sequelize model:generate --name Member --attributes name:string,team:string,position:string,emailAddress:string,phoneNumber:string,admissionDate:date,birthday:date,profileImage:string
+//모델 생성
+
+npx sequelize db:migrate // 모델을 이용하여 테이블생성
+npx sequelize db:migrate:undo // 가장최근에 마이그레이트한 명령어 취소
+npx sequelize seed:generate --name initialMembers // 시드파일을 만드는 명령어(seeders폴더)
+npx sequelize db:seed:all // seed파일을 db테이블에 적용하여 seed데이터 추가
