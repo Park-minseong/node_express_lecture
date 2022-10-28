@@ -37,10 +37,29 @@
 
 // module.exports = db;
 
-const Sequelize = require('sequelize');
-const config = require('../config/config.json');
+//////////////////////////////////////////////////////config.json development만 사용
+// const Sequelize = require('sequelize');
+// const config = require('../config/config.json');
 
-const { username, password, database, host, dialect } = config.development;
+// const { username, password, database, host, dialect } = config.development;
+// const sequelize = new Sequelize(database, username, password, {
+//   host,
+//   dialect,
+// });
+
+// const Member = require('./member')(sequelize, Sequelize.DataTypes);
+// const db = {};
+// db.Member = Member;
+
+// module.exports = db;
+
+//////////////////////////////////////////////////////config.js 실행시 입력된 env에 따라db값 설정
+const Sequelize = require('sequelize');
+
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config')[env];
+
+const { username, password, database, host, dialect } = config;
 const sequelize = new Sequelize(database, username, password, {
   host,
   dialect,
