@@ -71,11 +71,23 @@ app.put('/api/members/:id', async (req, res) => {
   }
 });
 
+// app.delete('/api/members/:id', async (req, res) => {
+//   const { id } = req.params;
+//   const deletedCount = await Member.destroy({ where: { id } }); // 삭제된 행의 개수 반환
+//   if (deletedCount) {
+//     res.send({ message: `${deletedCount} row(s) deleted` });
+//   } else {
+//     res.status(404).send({ message: 'There is no member with the id!' });
+//   }
+// });
+
+/////////////////////////////////반환된 Member 객체의 destroy 메소드를 이용한 삭제
 app.delete('/api/members/:id', async (req, res) => {
   const { id } = req.params;
-  const deletedCount = await Member.destroy({ where: { id } }); // 삭제된 행의 개수 반환
-  if (deletedCount) {
-    res.send({ message: `${deletedCount} row(s) deleted` });
+  const member = await Member.findOne({ where: { id } });
+  if (member) {
+    const result = await member.destroy();
+    res.send({ message: '1 row(s) deleted' });
   } else {
     res.status(404).send({ message: 'There is no member with the id!' });
   }
