@@ -42,13 +42,30 @@ app.post('/api/members', async (req, res) => {
   //build, save 동시에 실행하는 메소드 = create()
   res.send(member);
 });
+////////////////////////////////////update
+// app.put('/api/members/:id', async (req, res) => {
+//   const { id } = req.params;
+//   const newInfo = req.body;
+//   const result = await Member.update(newInfo, { where: { id } }); // [수정된 행의 개수 반환, ...]배열 반환 /변경할 데이터만 req에 담아도 됨
+//   if (result[0]) {
+//     res.send({ message: `${result} row(s) affected` });
+//   } else {
+//     res.status(404).send({ message: 'There is no member with the id!' });
+//   }
+// });
 
+//update메소드 외의 수정방법(save)
 app.put('/api/members/:id', async (req, res) => {
   const { id } = req.params;
   const newInfo = req.body;
-  const result = await Member.update(newInfo, { where: { id } }); // [수정된 행의 개수 반환, ...]배열 반환 /변경할 데이터만 req에 담아도 됨
-  if (result[0]) {
-    res.send({ message: `${result} row(s) affected` });
+  const member = await Member.findOne({ where: { id } });
+  if (member) {
+    Object.keys(newInfo).forEach((prop) => {
+      member[prop] = newInfo[prop];
+    });
+
+    await member.save();
+    res.send(member);
   } else {
     res.status(404).send({ message: 'There is no member with the id!' });
   }
