@@ -24,9 +24,9 @@ app.get('/api/members', async (req, res) => {
   }
 });
 
-app.get('/api/members/:id', (req, res) => {
+app.get('/api/members/:id', async (req, res) => {
   const { id } = req.params;
-  const member = members.find((m) => m.id === Number(id));
+  const member = await Member.findOne({ where: { id } });
   if (member) {
     res.send(member);
   } else {
@@ -34,12 +34,16 @@ app.get('/api/members/:id', (req, res) => {
   }
 });
 
-app.post('/api/members', (req, res) => {
+app.post('/api/members', async (req, res) => {
   const newMember = req.body;
-  members.push(newMember);
+  const member = Member.build(newMember);
+  await member.save();
+  //const member = await Member.create(newMember);
+  //build, save 동시에 실행하는 메소드 = create()
+  res.send(member);
 });
 
-app.put('/api/members/:id', (req, res) => {
+app.put('/api/members/:id', async (req, res) => {
   const { id } = req.params;
   const newInfo = req.body;
   const member = members.find((m) => m.id === Number(id));

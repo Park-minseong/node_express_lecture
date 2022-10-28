@@ -1,13 +1,11 @@
-GET http://localhost:3000/api/members?team=engineering
-
+GET http://localhost:3000/api/members
 
 ###
 POST http://localhost:3000/api/members
 Content-Type: application/json
 
 {  
-    "id": 11,
-    "name": "Zake",
+    "name": "William",
     "team": "engineering",
     "position": "Android Developer",
     "emailAddress": "zake@google.com",
