@@ -71,12 +71,11 @@ app.put('/api/members/:id', async (req, res) => {
   }
 });
 
-app.delete('/api/members/:id', (req, res) => {
+app.delete('/api/members/:id', async (req, res) => {
   const { id } = req.params;
-  const memberCount = members.length;
-  members = members.filter((member) => member.id !== Number(id));
-  if (members.length < memberCount) {
-    res.send({ message: 'Deleted' });
+  const deletedCount = await Member.destroy({ where: { id } }); // 삭제된 행의 개수 반환
+  if (deletedCount) {
+    res.send({ message: `${deletedCount} row(s) deleted` });
   } else {
     res.status(404).send({ message: 'There is no member with the id!' });
   }
