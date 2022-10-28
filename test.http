@@ -1,4 +1,4 @@
-GET http://localhost:3000/api/members
+GET http://localhost:3000/api/members/1
 
 ###
 POST http://localhost:3000/api/members
@@ -20,15 +20,7 @@ PUT http://localhost:3000/api/members/1
 Content-Type: application/json
 
 {
-    "id": 1,
-    "name": "Alex",
-    "team": "engineering",
-    "position": "IOS Developer",
-    "emailAddress": "alex@google.com",
-    "phoneNumber": "010-xxxx-xxxx",
-    "admissionDate": "2018/12/10",
-    "birthday": "1994/11/08",
-    "profileImage": "profile1.png"
+    "position": "Server Developer"
 }
 
 ###

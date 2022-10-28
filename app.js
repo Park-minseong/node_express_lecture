@@ -46,12 +46,9 @@ app.post('/api/members', async (req, res) => {
 app.put('/api/members/:id', async (req, res) => {
   const { id } = req.params;
   const newInfo = req.body;
-  const member = members.find((m) => m.id === Number(id));
-  if (member) {
-    Object.keys(newInfo).forEach((props) => {
-      member[props] = newInfo[props];
-    });
-    res.send(member);
+  const result = await Member.update(newInfo, { where: { id } }); // [수정된 행의 개수 반환, ...]배열 반환 /변경할 데이터만 req에 담아도 됨
+  if (result[0]) {
+    res.send({ message: `${result} row(s) affected` });
   } else {
     res.status(404).send({ message: 'There is no member with the id!' });
   }
